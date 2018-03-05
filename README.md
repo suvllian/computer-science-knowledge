@@ -12,6 +12,6 @@
 
 # 计算机组成原理 :game_die:
 
-# 数据库 :us:
+# 数据库 :tractor:
 
-# 设计模式 :uk:
+# 设计模式 :horse_racing:
