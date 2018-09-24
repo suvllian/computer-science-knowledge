@@ -21,4 +21,4 @@
 # 设计模式 :horse_racing:
 
 # 代码之外的生存之道 :grinning:
-* [程序员的职业规划]()
+* [程序员的职业规划](./Live/career-route.md)
