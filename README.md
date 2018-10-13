@@ -22,3 +22,5 @@
 
 # 代码之外的生存之道 :grinning:
 * [程序员的职业规划](./Live/career-route.md)
+* [如何写好一个README](./Live/how-to-write-readme.md)
+* [如何写好一份技术评审方案](./Live/how-to-write-a-technoloy-plan.md)
