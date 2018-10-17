@@ -1,20 +1,34 @@
 ## :cloud: 计算机网络 
-* [TCP/IP](#)
+- [TCP/IP](#)
+
 
 ## :bamboo: 操作系统 
-* [计算机操作系统](#)
-* [Linux](#)
+- [计算机操作系统](#)
+
+- [Linux](#)
+
 
 ## :key: 数据结构与算法 
+- [算法](./Algorithm/README.md)
+
+- [Leetcode题解](https://github.com/suvllian/problem-oj/tree/master/LeetCode)
+
+  对题目进行分类，总结解题思路及解法。
+
 
 ## :game_die: 计算机组成原理 
 
+
 ## :tractor: 数据库 
-* 关系型数据库：Mysql
-* 非关系型数据库：MongoDb
-* 缓存数据库：redis
+- 关系型数据库：Mysql
+
+- 非关系型数据库：MongoDb
+
+- 缓存数据库：redis
+
 
 ## :horse_racing: 设计模式 
+
 
 ## :grinning: 代码之外的生存之道 
 * [程序员的职业规划](./Live/career-route.md)
