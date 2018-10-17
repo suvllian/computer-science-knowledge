@@ -1,26 +1,22 @@
-# 计算机网络 :cloud:
+## :cloud: 计算机网络 
+* [TCP/IP](#)
 
-> [TCP/IP](#)
+## :bamboo: 操作系统 
+* [计算机操作系统](#)
+* [Linux](#)
 
-# 操作系统 :bamboo:
+## :key: 数据结构与算法 
 
-> [计算机操作系统](#)
+## :game_die: 计算机组成原理 
 
-> [Linux](#)
-
-# 数据结构与算法 :key:
-
-# 计算机组成原理 :game_die:
-
-# 数据库 :tractor:
-
+## :tractor: 数据库 
 * 关系型数据库：Mysql
 * 非关系型数据库：MongoDb
 * 缓存数据库：redis
 
-# 设计模式 :horse_racing:
+## :horse_racing: 设计模式 
 
-# 代码之外的生存之道 :grinning:
+## :grinning: 代码之外的生存之道 
 * [程序员的职业规划](./Live/career-route.md)
 * [如何写好一个README](./Live/how-to-write-readme.md)
 * [如何写好一份技术评审方案](./Live/how-to-write-a-technoloy-plan.md)
