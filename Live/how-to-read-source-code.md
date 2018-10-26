@@ -21,3 +21,4 @@
 
 * [Reading Your Framework’s Source Code? Yes, You Can Do It](https://medium.com/@urish/reading-your-frameworks-source-code-yes-you-can-do-it-2bdd8c9e947b)
 * [如何阅读大型前端开源项目的源码](https://juejin.im/post/5afe3735518825426539afce)
+* [stackoverflow: How/Where to start reading open source code](https://stackoverflow.com/questions/3318684/how-where-to-start-reading-open-source-code)
