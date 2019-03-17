@@ -20,11 +20,14 @@
 
 
 ## :tractor: 数据库 
-- 关系型数据库：Mysql
+- [数据库基础知识](./database/basic)
 
-- 非关系型数据库：MongoDb
+- 数据库类型：
+  - 关系型数据库：Mysql
 
-- 缓存数据库：redis
+  - 非关系型数据库：MongoDb
+
+  - 缓存数据库：redis
 
 
 ## :horse_racing: 设计模式 
