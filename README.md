@@ -32,12 +32,11 @@
 
 ## :horse_racing: 设计模式 
 
+- [AOP面向切面编程](./design-pattern/aop.md)
+
 ## :running: 软件工程
 
-- 敏捷软件开发
-  - [what is scrum](https://www.scrum.org/resources/what-is-scrum)
-  - [scrum guide](https://www.scrumguides.org/)
-
+- [敏捷软件开发](./software-engineering/scrum.md)
 
 ## :grinning: 代码之外的生存之道 
 - 职业
