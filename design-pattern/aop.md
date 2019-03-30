@@ -1,12 +1,12 @@
-## 面向切面编程
+用过express、koa或者redux的同学应该都知道它们都有**“中间件”**(前端意义上的中间件，不是指平台与应用之间的通用服务)这样一个概念，在redux中我们可以通过中间件的方式使用`redux-thunk`和`loger`的功能，在koa中我们可以通过中间件对请求上下文`context`进行处理。
 
-用过express、koa或者redux的同学应该都知道它们都有“中间件”这样一个概念，在redux中我们可以通过中间件的方式使用`redux-thunk`和`loger`的功能，在koa中我们可以通过中间件对请求上下文`context`进行处理。
+通过中间件，我们可以在一些方法执行前添加统一的处理（如登录校验，打印操作日志等），中间件的设计思想都是面向切面编程的思想，把一些跟业务无关的逻辑进行抽离，在需要使用的场景中再切入，降低耦合度，提高可重用性，而且使代码更简洁。
 
-通过中间件，我们可以在一些方法执行前添加统一的处理（如登录校验等），中间件的设计思想都是面向切面编程的思想，把一些跟业务无关的逻辑进行抽离，在需要使用的场景中再切入，降低耦合度，提高可重用性，而且使代码更简洁。
+下面我们通过源码分析redux和koa是如何实现中间件的，最后详细介绍面向切面编程解决的一些问题。
 
-### redux中间件
+### 一、redux中间件
 
-我们先来看下redux中间件的用法
+我们先来看下redux中间件的用法。redux暴露了`applyMiddleware`方法，接受一个函数数组作为参数，函数的返回值作为第二参数传入`createStore`。
 
 ``` javascript
 import { createStore, applyMiddleware } from 'redux'
@@ -25,7 +25,7 @@ const store = createStore(
 )
 ```
 
-接下来看redux中间件是怎么实现的，下面是applyMiddleware的源码，其中对dispatch方法进行了处理，处理后的dispatch在每次调用时都会链式调用中间件函数。
+接下来看redux中间件是怎么实现的，下面是applyMiddleware的源码，其中对dispatch方法进行了compose处理，处理后的dispatch在每次调用时都会链式调用中间件函数。
 
 ``` javascript
 export default function applyMiddleware(...middlewares) {
@@ -53,7 +53,7 @@ export default function applyMiddleware(...middlewares) {
 }
 ```
 
-compose的源码如下，其主要作用是依次调用函数数组中的中间件函数，并将前一个函数的返回结果作为后一个函数的入参。
+compose的源码如下，其主要作用是依次调用函数数组中的中间件函数，并将前一个函数的返回结果作为后一个函数的入参，从而实现了在调用`dispath`时调用其他方法的需求。
 
 ``` javascript
 export default function compose(...funcs) {
@@ -69,9 +69,9 @@ export default function compose(...funcs) {
 }
 ```
 
-### koa中间件
+### 二、koa中间件
 
-同样的，我们来看下koa中间件的用法。
+同样的，我们来看下koa中间件的用法。首先实例化一个`Koa`对象，然后通过对象中的`use`方法添加中间件函数，最后调用`listen`方法启动node服务器
 
 ``` javascript
 const app = new Koa();
@@ -109,7 +109,6 @@ const server = app.listen();
 
 ``` javascript
 listen(...args) {
-  debug('listen');
   const server = http.createServer(this.callback());
   return server.listen(...args);
 }
@@ -119,7 +118,6 @@ use(fn) {
   if (isGeneratorFunction(fn)) {
     fn = convert(fn);
   }
-  debug('use %s', fn._name || fn.name || '-');
   this.middleware.push(fn);
   return this;
 }
@@ -147,7 +145,7 @@ handleRequest(ctx, fnMiddleware) {
 }
 ```
 
-koa中的`compose`方法和redux中的`compose`方法原理是一样的，都是用洋葱模型的方式依次调用中间件函数，我们来看下koa中`compose`方法的实现。
+koa中的`compose`方法和redux中的`compose`方法原理是一样的，都是用洋葱模型的方式依次调用中间件函数，但是`koa-compose`是通过Promise的方式实现的。我们来看下koa中`compose`方法的实现。
 
 ``` javascript
 function compose (middleware) {
@@ -176,6 +174,10 @@ function compose (middleware) {
 }
 ```
 
+### 三、面向切面编程
+
+通过对redux和koa中间件实现的简单分析，大家应该对面向切面编程有了一个简单的理解，下面一部分内容就是详细介绍面向切面编程，以及如果不用面向切面编程的方式，我们还能用什么方式来满足需求，以及这些方式有什么问题。
+
 面向切面编程(Aspect Oriented Programming，也叫面向方面编程)是一种非侵入式扩充对象、方法和函数行为的技术。
 
 核心思想是通过对方法的拦截，在预编译或运行时进行动态代理，实现在方法被调用时可以以对业务代码无侵入的方式添加功能。
@@ -194,7 +196,7 @@ function compose (middleware) {
 
 最后在流水线的中的空隙插上两个工人去处理，形成采摘 - 分类 - 清洗 - 包装 - 贴标签 的新流程，而且工人可以随时撤回。
 
-回到什么是AOP的问题？
+回到AOP的作用这个问题。
 
 > AOP就是在现有代码程序中，在不影响原有功能的基础上，在程序生命周期或者横向流程中加入/减去一个或多个功能。
 
@@ -204,7 +206,7 @@ function compose (middleware) {
 
 ``` javascript
 class Foo {
-  doSomething(a, b) {
+  doSomething() {
     let result;
 
     // dosomething
@@ -216,23 +218,23 @@ class Foo {
 const foo = new Foo()
 foo.doSomething(1, 2)
 
-// before add, value: 1, 2
-// after add, result: result
+// before doSomething
+// after doSomething, result: result
 ``` 
 
-#### 1. 修改源代码
+#### 3.1 修改源代码
 
 最简单粗暴的方法，就是重写`add`方法
 
 ``` javascript
 class Foo {
-  doSomething(a, b) {
-    console.log(`before add, value: ${a}, ${b}`)
+  doSomething() {
+    console.log(`before doSomething`)
     let result;
 
     // dosomething
 
-    console.log(`after add, result: ${result}`)
+    console.log(`after doSomething, result: ${result}`)
     return result
   }
 }
@@ -240,40 +242,40 @@ class Foo {
 const foo = new Foo()
 foo.doSomething(1, 2)
 
-// before add, value: 1, 2
-// after add, result: result
+// before doSomething
+// after doSomething, result: result
 ```
 
-这样的坏处很明显，需要改动原有的代码，是侵入性最强的一种做法。如果代码逻辑复杂，修改代码也会变得困难。如果想用类似的方法分析其他方法，同样需要修改源代码。
+这样的坏处很明显，需要改动原有的代码，是侵入性最强的一种做法。如果代码逻辑复杂，修改代码也会变得困难。如果想用类似的方法分析其他方法，同样需要修改其他方法的源代码。
 
-#### 2. 继承
+#### 3.2 继承
 ``` javascript
 class Bar extends Foo {
   doSomething () {
-    if (_doSomething) {
-      console.log(`before add, value: ${a}, ${b}`)
+    console.log(`before doSomething`)
 
-      const result = super.doSomething.apply(this, arguments)
+    const result = super.doSomething.apply(this, arguments)
 
-      console.log(`after add, result: ${result}`)
-    }
+    console.log(`after doSomething, result: ${result}`)
+
+    return result
   }
 }
 
 const bar = new Bar()
 bar.doSomething(1, 2)
 
-// before add, value: 1, 2
-// after add, result: result
+// before doSomething
+// after doSomething, result: result
 ```
 
-用继承的方式避免了修改父类的源代码，但是每个使用`new Foo`的地方都要改成`new Bar`，而且如果需要在多个方法中添加日志，也要重复写多次`console.log`。
+用继承的方式避免了修改父类的源代码，但是每个使用`new Foo`的地方都要改成`new Bar`。
 
-#### 3. 重写类方法
+#### 3.3 重写类方法
 
 ``` javascript
 class Foo {
-  doSomething(a, b) {
+  doSomething() {
     let result;
 
     // dosomething
@@ -285,11 +287,11 @@ class Foo {
 const _doSomething = Foo.prototype.doSomething
 Foo.prototype.doSomething = function() {
   if (_doSomething) {
-    console.log(`before add, value: ${a}, ${b}`)
+    console.log(`before doSomething`)
 
     const result = _doSomething.apply(this, arguments)
 
-    console.log(`after add, result: ${result}`)
+    console.log(`after doSomething, result: ${result}`)
     
     return result
   }
@@ -298,15 +300,115 @@ Foo.prototype.doSomething = function() {
 const foo = new Foo()
 foo.doSomething(1, 2)
 
-// before add, value: 1, 2
-// after add, result: result
+// before doSomething
+// after doSomething, result: result
 ```
 
-这样就多了中间变量`_doSomething`，管理需要成本，同样的如果需要在多个方法中添加日志，也要重复写多次`console.log`。
+这样就多了中间变量`_doSomething`，管理需要成本。
 
+#### 3.4 职责链模式
+
+我们可以通过在Function的原型上添加before和after函数来满足我们的需求。
+
+``` javascript 
+Function.prototype.before = function (fn) {
+  var self = this;
+  return function () {
+    fn.apply(this, arguments);
+    self.apply(this, arguments);
+  }
+}
+Function.prototype.after = function (fn) {
+  var self = this;
+  return function () {
+    const result = self.apply(this, arguments);
+    fn.call(this, result);
+  }
+}
+
+class Foo {
+  doSomething() {
+    let result;
+
+    // dosomething
+    result = 1
+
+    return result
+  }
+}
+
+const foo = new Foo()
+foo.doSomething.after((result) => {
+  console.log(`after doSomething, result: ${result}`)
+}).before(() => {
+  console.log('before doSomething')
+})()
+
+// before doSomething
+// after doSomething, result: 1
+```
+
+从代码上已经实现了完全解耦，也没有中间变量，但是却有一长串的链式调用，如果处理不当，代码可读性及可维护性较差。
+
+#### 3.5 中间件
+
+我们可以借用中间件思想来分解前端业务逻辑，通过next方法层层传递给下一个业务。首先要有个管理中间件的对象，我们先创建一个名为Middleware的对象：
+
+``` javascript
+function Middleware(){
+  this.cache = [];
+}
+Middleware.prototype.use = function (fn) {
+  if (typeof fn !== 'function') {
+    throw 'middleware must be a function';
+  }
+  this.cache.push(fn);
+  return this;
+}
+
+Middleware.prototype.next = function (fn) {
+  if (this.middlewares && this.middlewares.length > 0) {
+    var ware = this.middlewares.shift();
+    ware.call(this, this.next.bind(this));
+  }
+}
+Middleware.prototype.handleRequest = function () {
+  this.middlewares = this.cache.map(function (fn) {
+    return fn;
+  });
+  this.next();
+}
+var middleware = new Middleware();
+middleware.use(function (next) {
+  console.log(1); next(); console.log('1结束');
+});
+middleware.use(function (next) {
+  console.log(2); next(); console.log('2结束');
+});
+middleware.use(function (next) {
+  console.log(3); console.log('3结束');
+});
+middleware.use(function (next) {
+  console.log(4); next(); console.log('4结束');
+});
+middleware.handleRequest();
+
+// 输出结果：
+// 1
+// 2
+// 3
+// 3结束
+// 2结束
+// 1结束
+```
+
+### 四、总结
+
+本文一开始简单分析了redux及koa中间件的实现方式，然后介绍了面向切面编程，通过一个例子介绍不同的方式实现对方法的扩充，最后我们能明显的体会到面向切面编程的方式能降低代码耦合度，提高可重用性，而且使代码更简洁。
 
 ### References
 * [koa-compose源代码](https://github.com/koajs/compose/blob/master/index.js)
 * [redux中compose的实现](https://github.com/reduxjs/redux/blob/master/src/compose.js)
-* [Koa.js 的AOP设计](https://chenshenhai.github.io/koajs-design-note/note/chapter02/01.html)
+* [Koa.js的AOP设计](https://chenshenhai.github.io/koajs-design-note/note/chapter02/01.html)
 * [编写可维护代码之“中间件模式”](https://zhuanlan.zhihu.com/p/26063036)
+* [使用JavaScript拦截和跟踪浏览器中的HTTP请求](https://www.ibm.com/developerworks/cn/web/wa-lo-jshttp/index.html)
