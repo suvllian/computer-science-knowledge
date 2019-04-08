@@ -35,3 +35,14 @@ SELECT
         FROM cbulst.s_out_bound_order ) AS typeCount 
 GROUP BY typeCount.用户名称
 ```
+
+#### 3. if语句
+
+if语句用法如下，如果expr1成立返回value1，否则返回value2，可以用`case when`语句实现同样的需求。
+``` sql
+if (expr1, value1, value2)
+```
+
+``` sql
+select if (sex = 1, '男', '女') as sex from student
+```
