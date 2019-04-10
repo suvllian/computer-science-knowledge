@@ -47,5 +47,6 @@
   
 - 学习
   - [如何写好一个README](./Live/how-to-write-readme.md)
+  - [技术调研方案框架](./Live/how-to-write-tech-research.md)
   - [如何写好一份技术评审方案](./Live/how-to-write-a-technoloy-plan.md)
   - [如何阅读源代码](./Live/how-to-read-source-code.md)
