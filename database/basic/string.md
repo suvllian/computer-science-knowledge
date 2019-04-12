@@ -11,3 +11,11 @@
 #### 2.1 LOCATE(substr,str) 
 
 #### 2.2 POSITION(substr IN str) 
+
+### 3. 拼接字符串
+
+#### 3.1 CONCAT()
+
+``` sql
+SELECT CONCAT(userName, ': ', phoneNumber) AS userInfo FROM users;
+```
