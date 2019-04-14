@@ -1,6 +1,6 @@
-### SQL查询
+## SQL查询
 
-#### 1. 将数据库查询结果转换为显示自定义字段
+### 1. 将数据库查询结果转换为显示自定义字段
 
 在开发时经常会遇到数据中用单字符保存简单信息，如性别、状态等。如果需要在查询时展示对应的字段，比如性别：1表示男，0表示女。
 
@@ -13,7 +13,7 @@ SELECT name, age, sex, CASE WHEN state = 0 THEN '正常' WHEN state = 1 THEN '�
 from student
 ```
 
-#### 2. 根据查询结果进行分组
+### 2. 根据查询结果进行分组
 
 在开发时，可能需要根据某个字段的值进行分组，但不是简单的`group by`，而是需要一些逻辑判断。
 
@@ -36,7 +36,7 @@ SELECT
 GROUP BY typeCount.用户名称
 ```
 
-#### 3. if语句
+### 3. if语句
 
 if语句用法如下，如果expr1成立返回value1，否则返回value2，可以用`case when`语句实现同样的需求。
 ``` sql
@@ -47,17 +47,17 @@ if (expr1, value1, value2)
 select if (sex = 1, '男', '女') as sex from student
 ```
 
-#### 4. 使用正则表达式
+### 4. 使用正则表达式
 
 ``` sql
 SELECT vend_name FROM vendors WHERE vend_name REGEXP '.'
 ```
 
-#### 5. 联结查询
+### 5. 联结查询
 
 联结不是物理实体，它在实际的物理表中并不存在，存在于执行的查询当中。
 
-##### 5.1 内联结
+#### 5.1 内联结
 内联结是给予两个表的等值联结
 
 ``` sql
@@ -70,7 +70,7 @@ SELECT vend_name, prod_name, prod_price FROM verdors INNER JOIN products ON vend
 SELECT vend_name, prod_name, prod_price FROM verdors, products WHERE vendors.vend_id = products.vend_id
 ```
 
-##### 5.2 自联结
+#### 5.2 自联结
 
 ``` sql
 select p1.prod_id, p1.prod_name from products as p1, products as p2 where p1.vend_id = p2.vend_id and p2.prod_id = 'DTNTR';
@@ -81,12 +81,12 @@ select p1.prod_id, p1.prod_name from products as p1, products as p2 where p1.ven
 select prod_id, prod_name from products where vend_id = (select vend_id from products where prod_id = 'DTNTR');
 ```
 
-##### 5.3 外联结
+#### 5.3 外联结
 许多联结将一个表中的行与另一个表中的行相关联，但有时候会需要包含没有关联行的那些行，这种联结方式叫外联结。
 
 在使用`OUTER JOIN`时，必须使用`RIGHT`或`LEFT`关键字制定包括其所有行的表。（right指的是outer join右边的表，left指的是outer join左边的表）
 
-#### 6. 组合查询
+### 6. 组合查询
 UNION中的每个查询必须包含相同的列、表达式或聚集函数；UOION必须由两条或者两条以上的SELECT语句组成。
 
 ``` sql
