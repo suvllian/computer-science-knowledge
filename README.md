@@ -38,6 +38,12 @@
 
 - [敏捷软件开发](./software-engineering/scrum.md)
 
+## :rocket: 开发工具
+
+- [通用工具](./tools/common-tools.md)
+- [前端开发工具](./tools/front-end-tools.md)
+- [Mac提效工具](./tools/mac-tools.md)
+
 ## :grinning: 代码之外的生存之道 
 - 职业
   - [程序员的职业规划](./Live/career-route.md)

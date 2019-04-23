@@ -16,5 +16,7 @@
 * 视图可以和表一起使用。
 
 ``` sql
-create view productcustomers as select cust_name, cust_contact, prod_id from customers, orders, orderitems where customers.cust_id = orders.cust_id and orderitems.order_num = orders.order_name
+create view productcustomers as 
+select cust_name, cust_contact, prod_id from customers, orders, orderitems 
+where customers.cust_id = orders.cust_id and orderitems.order_num = orders.order_name
 ```
