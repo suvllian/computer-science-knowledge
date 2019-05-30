@@ -37,7 +37,7 @@
 ## :running: 软件工程
 
 - [敏捷软件开发](./software-engineering/scrum.md)
-- [如何写好一份技术评审方案](./how-to-write-a-technoloy-plan.md)
+- [如何写好一份技术评审方案](./software-engineering/how-to-write-a-technoloy-plan.md)
 
 ## :rocket: 开发工具
 
