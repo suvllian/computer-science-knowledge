@@ -7,7 +7,9 @@
   - [日期函数](./date.md)
   - [字符串函数](./string.md)
   - [其他函数](./other.md)
-- [查](./select.md)
+- [查]
+  - [基本查询](./select-basic.md)
+  - [查询场景](./select-usage.md)
 
 #### 进阶
 - [视图](./view.md)
