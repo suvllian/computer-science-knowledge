@@ -9,11 +9,19 @@
 将state字段进行转换：0、1、2分别转换为正常、删除、禁用
 
 ``` sql
-SELECT name, age, sex, CASE WHEN state = 0 THEN '正常' WHEN state = 1 THEN '删除' ELSE '禁用' END AS state
-from student
+SELECT  name
+        ,age
+        ,sex
+        ,CASE    WHEN state = 0 THEN '正常'
+                 WHEN state = 1 THEN '删除' 
+                 ELSE '禁用' 
+         END AS state
+FROM    student
+
 ```
 
 原来的结果：
+
 | orderId  | state | 
 | ------------- | ------------- |
 | 1 | 0  | 
@@ -21,6 +29,7 @@ from student
 | 3  | 2  | 
 
 转换后的结果更容易理解
+
 | orderId  | state | 
 | ------------- | ------------- |
 | 1 | 正常  | 
@@ -66,21 +75,23 @@ GROUP BY typeCount.用户名称
 | 全校  | 50  | 70 |
 
 ``` sql
-drop table if exists tmp_student_count_table;
-create table tmp_student_count_table as
-select classname as 班级
-    ,malecount as 男生数量
-    ,femalecount as 女生数量
+DROP TABLE IF EXISTS tmp_student_count_table ;
 
-select 班级
-    ,男生数量
-    ,女生数量
-    from (
-        select * from tmp_student_count_table
-        union all
-        select '全校' as 班级
-            ,sum(malecount) as 男生数量
-            ,sum(femalecount) as 女生数量
-        from tmp_student_count_table
-    ) t1;
+CREATE TABLE tmp_student_count_table AS
+SELECT  classname AS 班级
+        ,malecount AS 男生数量
+        ,femalecount AS 女生数量;
+SELECT  班级
+        ,男生数量
+        ,女生数量
+FROM    (
+            SELECT  *
+            FROM    tmp_student_count_table
+            UNION ALL
+            SELECT  '全校' AS 班级
+                    ,SUM(malecount) AS 男生数量
+                    ,SUM(femalecount) AS 女生数量
+            FROM    tmp_student_count_table
+        ) t1
+;
 ```

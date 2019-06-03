@@ -41,9 +41,7 @@
 
 ## :rocket: 开发工具
 
-- [通用工具](./tools/common-tools.md)
-- [前端开发工具](./tools/front-end-tools.md)
-- [Mac提效工具](./tools/mac-tools.md)
+- [提效工具、开发工具、chrome插件等](./tools/tools.md)
 
 ## :grinning: 代码之外的生存之道 
 - 职业
