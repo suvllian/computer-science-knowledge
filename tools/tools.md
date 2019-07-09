@@ -1,13 +1,21 @@
 ### 效率工具
-* XMind
+* 思维导图：XMind
 
 ### 开发工具
 * Host切换工具：iHost
 
 ### 编辑器
-* vscode
-* webstorm
-* sublime text
+* VSCode
+* WebStorm
+* Sublime Text
+
+### Mac工具
+* mac终端工具： iterm2
+* 终端快捷键：oh-my-zsh
+* Mac通用搜索工具：Alfred
+* Mac自动切换壁纸：
+  * Irvue
+  * Unsplash Wallpapers
 
 ### Chrome插件
 * 通用插件
@@ -19,10 +27,5 @@
   * React开发者工具：React Developer Tools
   * Redux开发者工具：Redux DevTools
 
-### Mac工具
-* mac终端工具： iterm2
-* 终端快捷键：oh-my-zsh
-* Mac通用搜索工具：Alfred
-* Mac自动切换壁纸：
-  * Irvue
-  * Unsplash Wallpapers
+### VsCode插件
+* 查看每行代码的Git提交信息：GitLens
