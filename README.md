@@ -55,3 +55,4 @@
   - [如何写好一个README](./Live/how-to-write-readme.md)
   - [技术调研方案框架](./Live/how-to-write-tech-research.md)
   - [如何阅读源代码](./Live/how-to-read-source-code.md)
+  - [如何在团队中推广一门新技术](./Live/how-to-promote-a-newtech-in-your-team.md)
