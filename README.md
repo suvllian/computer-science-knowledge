@@ -34,11 +34,11 @@
 ## :horse_racing: 编程思想
 - 设计模式 
   - 设计模式原则
-  - [创建型设计模式](./design-pattern/creational-patterns)
+  - [创建型设计模式](./programming-concept/creational-patterns)
     - 工厂模式
     - 抽象工厂模式
 
-- [函数式编程](./design-pattern/functional-programming/)
+- [函数式编程](./programming-concept/functional-programming/)
   - 面向切面编程
 
 ## :running: 软件工程
