@@ -3,6 +3,7 @@
 ### 总结
 * [工厂模式](./factory-method.md)
 * [抽象工厂模式](./abstract-factory.md)
+* [生成器模式](./builder.md)
 
 ### 文档
 * [菜鸟笔记—设计模式](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)

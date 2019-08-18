@@ -37,6 +37,7 @@
   - [创建型设计模式](./programming-concept/creational-patterns)
     - 工厂模式
     - 抽象工厂模式
+    - 生成器模式
 
 - [函数式编程](./programming-concept/functional-programming/)
   - 面向切面编程
