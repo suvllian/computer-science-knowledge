@@ -13,6 +13,6 @@
   * 扩展复杂，需要增加抽象的Creator代码，也需要增加具体的实现代码。
 
 ### 示例
-* [工厂模式的PHP实现](https://github.com/suvllian/learning/tree/master/PHP/design-patterns/factory-method)
+* [工厂模式的PHP实现](https://github.com/suvllian/learning/tree/master/design-patterns/creational-patterns/factory-method)
 
 ### 文档
