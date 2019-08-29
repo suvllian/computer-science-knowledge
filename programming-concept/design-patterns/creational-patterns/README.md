@@ -6,7 +6,7 @@
 * [抽象工厂模式](./abstract-factory.md)
 * [生成器模式](./builder.md)
 * [原型模式](./prototype.md)
-* [单例模式]
+* [单例模式](./singleton.md)
 
 ### 文档
 * [菜鸟笔记—设计模式](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)

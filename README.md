@@ -35,6 +35,9 @@
     - 生成器模式
     - 原型模式
     - 单例模式
+  - [结构型设计模式](./programming-concept/design-patterns/structural-patterns)
+  - [行为设计模式](./programming-concept/design-patterns/behavioral-patterns)
+    - 职责链模式
 
 - [函数式编程](./programming-concept/functional-programming/)
   - 面向切面编程
