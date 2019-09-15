@@ -1,3 +1,6 @@
+## :bomb: 计算机基础知识
+- [字符编码](./basic-knowledge/string-code.md)
+
 ## :cloud: 计算机网络 
 - [TCP/IP](#)
 
