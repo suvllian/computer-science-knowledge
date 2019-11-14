@@ -53,6 +53,7 @@
 ## :rocket: 开发工具
 
 - [提效工具、开发工具、chrome插件等](./tools/tools.md)
+- [常用命令](./tools/shell-dict.md)
 
 ## :grinning: 代码之外的生存之道 
 

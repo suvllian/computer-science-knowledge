@@ -1,16 +1,27 @@
 ### 效率工具
-* 思维导图：XMind
+* 思维导图：XMind、XMind ZEN
+* 项目排期：OmniPlan
+
+### 功能工具
+* 录屏：LICEcap
+* 画图：OmniGraffle
 
 ### 开发工具
 * Host切换工具：iHost
+* 网络代理工具：
+  * Charles
 
 ### 编辑器
-* VSCode
-* WebStorm
-* Sublime Text
+* 前端开发
+  * VSCode
+  * WebStorm
+  * Sublime Text
+* Python
+  * PyCharm CE
 
 ### Mac工具
 * mac终端工具： iterm2
+* 快速进入指定目录：[autojump](https://www.jianshu.com/p/15f0ffaa88d7)。记录原来进入目录的历史记录。
 * 终端快捷键：oh-my-zsh
 * Mac通用搜索工具：Alfred
 * Mac自动切换壁纸：
