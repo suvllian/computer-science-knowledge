@@ -95,3 +95,54 @@ FROM    (
         ) t1
 ;
 ```
+
+### 4. 处理某一字段重复的记录
+
+#### 4.1 查询表中某一字段重复的记录
+
+``` sql
+SELECT  *
+FROM    people
+WHERE   peopleId IN (SELECT peopleId FROM people GROUP BY peopleId HAVING COUNT(peopleId) > 1)
+```
+
+#### 4.2 删除表中某一字段重复的记录，保留最新记录
+
+``` sql
+DELETE FROM people
+WHERE   peopleId IN (
+        SELECT  peopleId
+        FROM    people
+        GROUP BY peopleId HAVING COUNT(peopleId)>1
+                    ) AND id NOT IN (
+                            SELECT  max(id)
+                            FROM    people
+                            GROUP BY peopleId HAVING COUNT(peopleId)>1
+                                       )
+```
+
+#### 4.3 更新表中某一字段重复的记录，只保留最新记录
+**需要特别注意，在更新表时不能通过自查询再更新，需要通过中间表操作。**  
+
+参考：[You can't specify target table for update in FROM clause解决方法](https://blog.csdn.net/fdipzone/article/details/52695371)
+
+
+``` sql
+UPDATE page_info SET delete_flag
+                          = '1'
+WHERE   url IN (
+        SELECT  repeat_url
+        FROM    (
+                SELECT  url AS repeat_url
+                FROM    page_info
+                GROUP BY url HAVING COUNT(url)>1
+                ) AS repeatUrl
+               ) AND id NOT IN (
+                       SELECT  max_id
+                       FROM    (
+                               SELECT  max(id) AS max_id
+                               FROM    page_info
+                               GROUP BY url HAVING COUNT(url)>1
+                               ) AS maxId
+                               )
+```
