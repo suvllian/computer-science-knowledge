@@ -81,6 +81,8 @@ CREATE TABLE tmp_student_count_table AS
 SELECT  classname AS 班级
         ,malecount AS 男生数量
         ,femalecount AS 女生数量;
+
+
 SELECT  班级
         ,男生数量
         ,女生数量
@@ -128,21 +130,47 @@ WHERE   peopleId IN (
 
 
 ``` sql
-UPDATE page_info SET delete_flag
-                          = '1'
-WHERE   url IN (
-        SELECT  repeat_url
-        FROM    (
-                SELECT  url AS repeat_url
-                FROM    page_info
-                GROUP BY url HAVING COUNT(url)>1
-                ) AS repeatUrl
-               ) AND id NOT IN (
-                       SELECT  max_id
-                       FROM    (
-                               SELECT  max(id) AS max_id
-                               FROM    page_info
-                               GROUP BY url HAVING COUNT(url)>1
-                               ) AS maxId
-                               )
+
 ```
+
+### 5. 添加虚拟字段
+
+``` sql
+SELECT  '品牌商' AS user_type
+        ,name
+FROM    user_info;
+```
+
+### 6. 将SQL查询结果行记录转换为列属性
+
+[参考: sql查询结果的行记录转换为列属性](https://blog.csdn.net/Agly_Clarlie/article/details/87978445)
+
+需要把查询结果进行转换，按周访问次数进行Group，用户类型作为列名
+
+| week_visit_time  | visit_count | user_type |
+| ------------- | ------------- | ------------- |
+| 1  | 20  | supplier |
+| 1  | 30  | brandOwner
+| 2  | 60  | supplier | |
+| 2  | 50  | brandOwner |
+
+使用`CASE THEN`语句进行转换
+
+```
+SELECT  week_visit_time
+        ,SUM(
+            CASE    WHEN user_type = 'brandOwner' THEN visit_count 
+                    ELSE 0 
+            END
+        ) AS brandOwner
+        ,SUM(CASE WHEN user_type = 'supplier' THEN visit_count ELSE 0 END) AS supplier
+FROM    tmp_merchant_type_visit_table
+GROUP BY week_visit_time
+```
+
+转换结果
+
+| week_visit_time  | supplier | brandOwner |
+| ------------- | ------------- | ------------- |
+| 1  | 20  | 30 |
+| 2  | 60  | 50 |
