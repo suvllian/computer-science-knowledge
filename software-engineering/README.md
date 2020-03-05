@@ -1,2 +1,6 @@
-- [敏捷软件开发](./software-engineering/scrum.md)
-- [如何写好一份技术评审方案](./how-to-write-a-technoloy-plan.md)
+- 项目开发
+  - [敏捷软件开发](./software-engineering/scrum.md)
+  - [如何写好一份技术评审方案](./software-engineering/how-to-write-a-technoloy-plan.md)
+- 团队合作
+  - [编码规范](./software-engineering/code-style-standard.md)
+  - [git commit规范](./software-engineering/git-commit-standard.md)
