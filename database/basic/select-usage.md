@@ -114,24 +114,49 @@ WHERE   peopleId IN (SELECT peopleId FROM people GROUP BY peopleId HAVING COUNT(
 DELETE FROM people
 WHERE   peopleId IN (
         SELECT  peopleId
-        FROM    people
-        GROUP BY peopleId HAVING COUNT(peopleId)>1
-                    ) AND id NOT IN (
-                            SELECT  max(id)
-                            FROM    people
-                            GROUP BY peopleId HAVING COUNT(peopleId)>1
-                                       )
+        FROM    (
+                SELECT  peopleId
+                FROM    people
+                GROUP BY peopleId HAVING COUNT(peopleId) >1
+                ) repeat_people
+)
+AND     id NOT IN (
+        SELECT  id
+        FROM    (
+                SELECT  max(id)
+                FROM    people
+                GROUP BY peopleId HAVING COUNT(peopleId) >1
+                ) max_id
+);
 ```
 
 #### 4.3 更新表中某一字段重复的记录，只保留最新记录
+``` sql
+UPDATE people SET value = 1
+WHERE   peopleId IN (
+        SELECT  peopleId
+        FROM    (
+                SELECT  peopleId
+                FROM    people
+                GROUP BY peopleId HAVING COUNT(peopleId) >1
+                ) repeat_people
+)
+AND     id NOT IN (
+        SELECT  id
+        FROM    (
+                SELECT  max(id)
+                FROM    people
+                GROUP BY peopleId HAVING COUNT(peopleId) >1
+                ) max_id
+);
+```
+
 **需要特别注意，在更新表时不能通过自查询再更新，需要通过中间表操作。**  
 
-参考：[You can't specify target table for update in FROM clause解决方法](https://blog.csdn.net/fdipzone/article/details/52695371)
+参考：
+* [You can't specify target table for update in FROM clause解决方法](https://blog.csdn.net/fdipzone/article/details/52695371)
+* [MYSQL删除重复数据](https://juejin.im/post/5ab4df3151882555635e4363#heading-0)
 
-
-``` sql
-
-```
 
 ### 5. 添加虚拟字段
 
