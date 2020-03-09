@@ -1,4 +1,4 @@
-## SQL查询
+## SQL查询场景
 
 ### 1. 将数据库查询结果转换为显示自定义字段
 
@@ -199,3 +199,34 @@ GROUP BY week_visit_time
 | ------------- | ------------- | ------------- |
 | 1  | 20  | 30 |
 | 2  | 60  | 50 |
+
+
+### 7. 分组查询。根据一个或多个字段进行分组，并只取每一组符合特定条件的记录作为结果
+
+[参考：MySQL组内排序问题：分组查询每组的前n条记录](https://www.jianshu.com/p/717c4bdad462)
+
+对于`pv_table`数据，需要查询每个URL访问次数最大的记录
+
+| id | url  | visit_count | date |
+| ------------- | ------------- | ------------- | ------------- |
+| 3 | suvllian.com  | 20  | 20200301 |
+| 5 | suvllian.com  | 30  | 20200301 |
+| 7 | suvllian.com  | 40  | 20200301 |
+| 9 | suvllian.net  | 30  | 20200301 |
+| 12 | suvllian.net  | 30  | 20200301 |
+| 16 | suvllian.net  | 40  | 20200301 |
+
+使用临时表关联查询，如果直接使用MAX查询，除了MAX函数中的字段，其他字段值是随机的，不是max记录的值，详见参考文章。
+
+```
+SELECT *
+  FROM pv_table
+ WHERE id IN(
+SELECT pv_table.id
+  FROM pv_table,(
+SELECT url, MAX(pv) AS maxPv
+  FROM `pv_table`
+GROUP BY url) max_pv
+ WHERE pv_table.url= max_pv.url
+   and pv_table.pv= max_pv.maxPv)
+```
