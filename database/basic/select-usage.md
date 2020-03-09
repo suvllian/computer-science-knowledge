@@ -181,7 +181,7 @@ FROM    user_info;
 
 使用`CASE THEN`语句进行转换
 
-```
+``` sql
 SELECT  week_visit_time
         ,SUM(
             CASE    WHEN user_type = 'brandOwner' THEN visit_count 
@@ -218,15 +218,8 @@ GROUP BY week_visit_time
 
 使用临时表关联查询，如果直接使用MAX查询，除了MAX函数中的字段，其他字段值是随机的，不是max记录的值，详见参考文章。
 
-```
-SELECT *
-  FROM pv_table
- WHERE id IN(
-SELECT pv_table.id
-  FROM pv_table,(
-SELECT url, MAX(pv) AS maxPv
-  FROM `pv_table`
-GROUP BY url) max_pv
- WHERE pv_table.url= max_pv.url
-   and pv_table.pv= max_pv.maxPv)
+``` sql
+SELECT  *
+FROM    pv_table
+WHERE   id IN( SELECT pv_table.id FROM pv_table,( SELECT url, MAX(pv) AS maxPv FROM `pv_table` GROUP BY url) max_pv WHERE pv_table.url = max_pv.url AND pv_table.pv = max_pv.maxPv)
 ```

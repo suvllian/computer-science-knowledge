@@ -22,7 +22,9 @@ SELECT vend_name FROM vendors WHERE vend_name REGEXP '.'
 联结不是物理实体，它在实际的物理表中并不存在，存在于执行的查询当中。
 
 #### 3.1 内联结
-内联结是给予两个表的等值联结
+内联结是给予两个表的等值联结，只有两个表中的记录满足条件才能返回结果。
+
+两个表中都有vend_id字段，且字段值一样的记录才能返回。
 
 ``` sql
 SELECT vend_name, prod_name, prod_price FROM verdors INNER JOIN products ON vendors.vend_id = products.vend_id
@@ -48,7 +50,8 @@ select prod_id, prod_name from products where vend_id = (select vend_id from pro
 #### 3.3 外联结
 许多联结将一个表中的行与另一个表中的行相关联，但有时候会需要包含没有关联行的那些行，这种联结方式叫外联结。
 
-在使用`OUTER JOIN`时，必须使用`RIGHT`或`LEFT`关键字制定包括其所有行的表。（right指的是outer join右边的表，left指的是outer join左边的表）
+在使用`OUTER JOIN`时，必须使用`RIGHT`或`LEFT`关键字指定包括其所有行的表。RIGHT JOIN指的是OUTER JOIN右边的表的内容，LEFT JOIN指的是OUTER JOIN左边的表。
+
 
 ### 4. 组合查询
 UNION中的每个查询必须包含相同的列、表达式或聚集函数；UOION必须由两条或者两条以上的SELECT语句组成。
