@@ -11,14 +11,6 @@
 * 网络代理工具：
   * Charles
 
-### 编辑器
-* 前端开发
-  * VSCode
-  * WebStorm
-  * Sublime Text
-* Python
-  * PyCharm CE
-
 ### Mac工具
 * mac终端工具： iterm2
 * 快速进入指定目录：[autojump](https://www.jianshu.com/p/15f0ffaa88d7)。记录原来进入目录的历史记录。
