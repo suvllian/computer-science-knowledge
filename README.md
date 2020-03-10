@@ -57,9 +57,10 @@
 
 ## :rocket: 开发工具
 
-- [IDE](./tools//IDE.md)
 - [提效工具、chrome插件等](./tools/tools.md)
 - [常用shell命令](./tools/shell-dict.md)
+- [IDE](./tools//ide.md)
+- [Git](./tools/git/README.md)
 
 ## :grinning: 代码之外的生存之道 
 

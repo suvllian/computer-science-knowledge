@@ -30,6 +30,3 @@
   * React开发者工具：React Developer Tools
   * Redux开发者工具：Redux DevTools
   * URL生成二维码：草料二维码
-
-### VsCode插件
-* 查看每行代码的Git提交信息：GitLens
