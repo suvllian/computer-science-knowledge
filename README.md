@@ -59,7 +59,7 @@
 
 - [IDE](./tools//IDE.md)
 - [提效工具、chrome插件等](./tools/tools.md)
-- [常用命令](./tools/shell-dict.md)
+- [常用shell命令](./tools/shell-dict.md)
 
 ## :grinning: 代码之外的生存之道 
 
