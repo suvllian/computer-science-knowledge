@@ -7,7 +7,7 @@
 ## :bamboo: 操作系统 
 - [计算机操作系统](#)
 
-- [Linux](#)
+- [Linux](./computer-system/linux/README.md)
 
 ## :key: 数据结构与算法 
 - [算法](./Algorithm/)
