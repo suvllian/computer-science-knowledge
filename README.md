@@ -61,6 +61,7 @@
 - [常用shell命令](./tools/shell-dict.md)
 - [IDE](./tools//ide.md)
 - [Git](./tools/git/README.md)
+- [画图工具](./tools/graph.md)
 
 ## :grinning: 代码之外的生存之道 
 
