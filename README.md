@@ -22,7 +22,10 @@
 
 
 ## :tractor: 数据库 
-- [数据库基础知识](./database/basic)
+- [数据库基础知识](./database)
+  - 基本SQL使用及常见的查询场景
+- [数据库进阶知识](./database)
+  - 慢SQL优化
 
 - 数据库类型：
   - 关系型数据库：Mysql
