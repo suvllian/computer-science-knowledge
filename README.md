@@ -1,3 +1,5 @@
+Github文档库更新慢，最新内容请关注语雀：<a href="https://www.yuque.com/qingsong-cqkvm/uumwa8" target="_blank">https://www.yuque.com/qingsong-cqkvm/uumwa8</a>
+
 ## :bomb: 计算机基础知识
 - [字符编码](./basic-knowledge/string-code.md)
 
