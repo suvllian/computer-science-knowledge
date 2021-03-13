@@ -5,5 +5,6 @@
 * [Git提交内容](./git-commit.md)
 * [Git删除分支](./git-delete-branch.md)
 * [Git回退操作](./git-reset-commit.md)
+* [Git常见问题及解决](./git-problems.md)
 
 ### 相关文档
