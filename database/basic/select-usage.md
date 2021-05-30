@@ -59,7 +59,8 @@ SELECT
 GROUP BY typeCount.用户名称
 ```
 
-### 3. 计算总计数量
+### 3. 统计数量
+#### 3.1 计算总计数量
 
 在日常数据分析过程中，我们查处按照某一维度区分的数据，但是还需要一个统计值作为参考。
 
@@ -97,7 +98,15 @@ FROM    (
         ) t1
 ;
 ```
+#### 3.2 统计一张表多个状态的数量
 
+``` sql
+SELECT COUNT(*)  AS total,
+       COUNT(if(mdt_apply_type= '1', 1, NULL)) AS single_diseases_num,
+       COUNT(if(mdt_apply_type= '2', 1, NULL)) AS multidisciplinary_num
+  FROM t_mdt_apply_list
+ WHERE audit_opinion= '3'
+```
 ### 4. 处理某一字段重复的记录
 
 #### 4.1 查询表中某一字段重复的记录
@@ -222,4 +231,39 @@ GROUP BY week_visit_time
 SELECT  *
 FROM    pv_table
 WHERE   id IN( SELECT pv_table.id FROM pv_table,( SELECT url, MAX(pv) AS maxPv FROM `pv_table` GROUP BY url) max_pv WHERE pv_table.url = max_pv.url AND pv_table.pv = max_pv.maxPv)
+```
+
+### 8. 一次更新多行多字段
+
+将满足条件的记录对应字段更新成相同的值
+``` sql
+UPDATE mytable SET myfield = 'value' WHERE other_field = 'other_value';
+```
+
+将满足条件的记录的字段更新成不同的值
+``` sql
+UPDATE mytable
+ SET myfield = CASE   other_field
+ WHEN 1 THEN 'value'
+ WHEN 2 THEN 'value'
+ WHEN 3 THEN 'value'
+END
+ WHERE id IN (1,2,3)
+```
+
+参考：[如何在数据库中一次更新多行多字段](http://www.renniaofei.com/code/update-multiple-rows-with-different-values-and-a-single-sql-query.html)
+
+### 9. A/B表为1对多关系，联合查询B表只提取第一条与A记录关联的记录
+``` sql
+SELECT  username
+FROM    (
+            SELECT  t1.username
+                    ,row_number() OVER (PARTITION BY t1.user_id) AS group_idx
+            FROM    t1
+                    ,t2
+            WHERE   t2.user_address_id = 1
+            AND     t1.user_id = t2.user_id
+        ) s
+WHERE   s.group_idx = 1
+;
 ```
