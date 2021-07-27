@@ -267,3 +267,12 @@ FROM    (
 WHERE   s.group_idx = 1
 ;
 ```
+
+### 10. 根据某个字段分组，并将分组中多条记录的某个字段输出
+
+通过group_concat()函数可以将group by产生的同一个分组中的值连接起来，返回一个字符串结果。
+
+
+``` sql
+SELECT user_id, GROUP_CONCAT(phone SEPARATOR ',') phone FROM testuser GROUP BY user_id;
+```
