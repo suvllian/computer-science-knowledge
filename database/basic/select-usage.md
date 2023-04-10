@@ -276,3 +276,18 @@ WHERE   s.group_idx = 1
 ``` sql
 SELECT user_id, GROUP_CONCAT(phone SEPARATOR ',') phone FROM testuser GROUP BY user_id;
 ```
+
+### 11. SQL查询结果行转成列展示
+
+使用pivot函数转换。
+
+原本一个用户会查出七条记录，现将星期几的字段转换成列，可以看每个用户在一周中每天的收入，进行对比。
+
+``` sql
+select * from DailyIncome
+pivot 
+(
+sum (IncomeAmount)
+for IncomeDay in ([MON],[TUE],[WED],[THU],[FRI],[SAT],[SUN])
+) as AvgIncomePerDay
+```
